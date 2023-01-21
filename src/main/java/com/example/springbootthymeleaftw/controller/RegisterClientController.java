@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/register")
 @RequiredArgsConstructor
-public class RegisterController {
+public class RegisterClientController {
     private final UserValidatorService userValidatorService;
     private final UserService userService;
 
@@ -24,7 +24,7 @@ public class RegisterController {
         System.out.println(model);
         model.addAttribute("userForm", new UserEntity());
 
-        return "register";
+        return "registerClient";
     }
 
     @PostMapping()
@@ -32,7 +32,7 @@ public class RegisterController {
         userValidatorService.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors())
-            return "register";
+            return "registerClient";
 
         userService.save(userForm);
         userService.login(userForm.getEmail(), userForm.getPassword());
