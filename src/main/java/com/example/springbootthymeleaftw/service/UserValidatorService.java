@@ -21,7 +21,7 @@ public class UserValidatorService implements Validator {
     public void validate(Object userEntity, Errors errors) {
         UserEntity user = (UserEntity) userEntity;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "user.isUsernameEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "user.isEmailEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "user.isPasswordEmpty");
 
         /* Valid email regex pattern - https://owasp.org/www-community/OWASP_Validation_Regex_Repository */
@@ -38,14 +38,13 @@ public class UserValidatorService implements Validator {
         */
         String passwordRegexPattern = "^(?:(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*)[^\s]{8,}$";
 
-        Boolean isValidUserLength = !(user.getUsername().length() < 2) && !(user.getUsername().length() > 32);
+
         Boolean isValidEmail =  user.getEmail().matches(emailRegexPattern);
         Boolean isValidPassword = user.getPassword().matches(passwordRegexPattern);
         Boolean arePasswordTheSame = user.getPassword().equals(user.getPasswordConfirm());
 
 
-        if (!isValidUserLength)
-            errors.rejectValue("username", "user.isValidUserLength");
+
         if(!isValidEmail)
             errors.rejectValue("email", "user.isValidEmail");
         if(!isValidPassword)
