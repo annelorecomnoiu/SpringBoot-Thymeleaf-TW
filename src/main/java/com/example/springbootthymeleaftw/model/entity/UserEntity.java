@@ -33,15 +33,5 @@ public class UserEntity {
 
 
     public UserEntity() {}
-
-
-    //    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            /* The table app_users_roles does not need representation in code */
-//            name = "app_users_roles",
-//            joinColumns = @JoinColumn(
-//                    name = "app_user_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(
-//                    name = "role_id", referencedColumnName = "id"))
-//    private Collection<RoleEntity> roles;
+    
 }

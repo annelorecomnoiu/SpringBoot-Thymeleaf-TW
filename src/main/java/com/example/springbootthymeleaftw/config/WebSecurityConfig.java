@@ -1,5 +1,6 @@
 package com.example.springbootthymeleaftw.config;
 
+import com.example.springbootthymeleaftw.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -30,6 +32,10 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     SecurityFilterChain resources (HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests()
+                .antMatchers("/admin/homeAdmin/**").hasRole("ADMIN")
+                .antMatchers("/businessToBusiness/**").hasRole("BUSINESS_TO_BUSINESS")
+                .antMatchers("/businessToCustomer/**").hasRole("BUSINESS_TO_CUSTOMER")
+                .antMatchers("/client/homeClient/**").hasRole("CLIENT")
                 .antMatchers( "/**").permitAll()
                 .and()
                 .formLogin()
@@ -42,16 +48,18 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                 .permitAll()
                 .and().build();
     }
-
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedMethods(METHODS_ALLOWED)
                 .allowedOrigins("*");
     }
-
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }
+
+
+

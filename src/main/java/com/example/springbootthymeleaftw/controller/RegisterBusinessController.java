@@ -46,7 +46,7 @@ public class RegisterBusinessController {
         userBusinessForm.setUserEntity(userForm);
         userBusinessForm.setIsApproved(false);
         userService.saveBusiness(userBusinessForm, userForm);
-//      userService.login(userForm.getEmail(), userForm.getPassword());
+        userService.login(userForm.getEmail(), userForm.getPassword());
         return "index";
     }
 }

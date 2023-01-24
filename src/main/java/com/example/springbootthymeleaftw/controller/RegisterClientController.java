@@ -36,8 +36,8 @@ public class RegisterClientController {
         if (bindingResult.hasErrors())
             return "registerClient";
 
-        userService.save(userForm);
-       // userService.login(userForm.getEmail(), userForm.getPassword());
-        return "index";
+        userService.saveClient(userForm);
+        userService.login(userForm.getEmail(), userForm.getPassword());
+        return "client/homeClient";
     }
 }

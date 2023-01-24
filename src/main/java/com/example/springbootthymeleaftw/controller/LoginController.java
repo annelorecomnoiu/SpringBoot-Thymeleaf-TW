@@ -21,7 +21,7 @@ public class LoginController {
         }
 
         if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+            model.addAttribute("error", "Your email and password is invalid.");
 
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
@@ -31,6 +31,8 @@ public class LoginController {
 
     @PostMapping("")
     public String login(Model model, String error, String logout){
+
+        System.out.println("========AM INTRAT IN LOGIN========");
         return "index";
     }
 

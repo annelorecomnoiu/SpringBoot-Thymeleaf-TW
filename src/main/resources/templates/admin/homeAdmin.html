@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <div th:include="fragments/components::header"></div>
+</head>
+
+<body>
+
+<div class="container">
+    <div class ="row">
+        <h1> List of BB and BC users</h1>
+    </div>
+    <table class ="table table-striped table-bordered">
+        <thead class ="table-dark">
+        <tr>
+            <th>Email</th>
+            <th>Company Name</th>
+            <th>Role</th>
+            <th>Address</th>
+            <th>Company Identification Code</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+
+        </tr>
+        </tbody>
+
+    </table>
+
+<!--        <form method="POST" class="form-signin" th:object="${userForm}" th:action="@{/registerClient}">-->
+
+<!--        </form>-->
+    </div>
+</div>
+
+<div th:include="fragments/components::bootstrap_script"/>
+
+
+</body>
+</html>
