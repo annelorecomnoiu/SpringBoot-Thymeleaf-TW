@@ -7,10 +7,22 @@
 </head>
 
 <body>
+<!--<div>-->
+<!--    <form action="#"  method="get" th:action="@{/re}">-->
+<!--        <input type="submit" value="Show list of BB and BC users" />-->
+<!--    </form>-->
+<!--</div>-->
+<!--<div>-->
+<!--    <a href="/businessUsers" class="link-danger">Show list of BB and BC users</a>-->
+<!--</div>-->
 
-<div class="container">
+
+
+<!--<div th:if="${businessUsers!=null and !businessUsers.isEmpty()}">-->
+<div class="container"  >
     <div class ="row">
         <h1> List of BB and BC users</h1>
+        <a href="/businessUsersList" class="link-danger">Show list of BB and BC users</a>
     </div>
     <table class ="table table-striped table-bordered">
         <thead class ="table-dark">
@@ -25,18 +37,19 @@
         </thead>
 
         <tbody>
-        <tr>
-
-        </tr>
+        <tr th:each = "businessUser: ${businessUsersList}">
+            <td th:text="${businessUser.email}"></td>
+            <td th:text="${businessUser.companyName}"></td>
+            <td th:text="${businessUser.role}"></td>
+            <td th:text="${businessUser.companyAddress}"></td>
+            <td th:text="${businessUser.companyIdentificationCode}"></td>
         </tbody>
-
     </table>
 
-<!--        <form method="POST" class="form-signin" th:object="${userForm}" th:action="@{/registerClient}">-->
 
-<!--        </form>-->
     </div>
 </div>
+<!--</div>-->
 
 <div th:include="fragments/components::bootstrap_script"/>
 

@@ -1,8 +1,10 @@
 package com.example.springbootthymeleaftw.controller;
 
+import com.example.springbootthymeleaftw.model.entity.RolesEnum;
 import com.example.springbootthymeleaftw.model.entity.UserEntity;
 import com.example.springbootthymeleaftw.repository.UserRepository;
 import com.example.springbootthymeleaftw.service.SecurityService;
+import com.example.springbootthymeleaftw.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +20,7 @@ import java.util.Optional;
 public class HomeController {
     private final SecurityService securityService;
     private final UserRepository userRepository;
+    private UserService userService;
 
     @GetMapping()
     public String open(Model model, String error, String logout){
@@ -42,9 +45,6 @@ public class HomeController {
                     return "businessToCustomer/homeBC";
             }
 
-        } else {
-            System.out.println("Nu sunt logat?????????????????????????????");
-            String username = principal.toString();
         }
         return "index";
     }

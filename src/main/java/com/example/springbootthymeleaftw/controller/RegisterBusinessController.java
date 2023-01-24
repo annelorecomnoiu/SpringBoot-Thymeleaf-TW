@@ -18,9 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/registerBusiness")
 @RequiredArgsConstructor
-
 public class RegisterBusinessController {
-
     private final UserValidatorService userValidatorService;
     private final UserService userService;
 

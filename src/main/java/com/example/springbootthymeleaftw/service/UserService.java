@@ -1,5 +1,7 @@
 package com.example.springbootthymeleaftw.service;
 
+import com.example.springbootthymeleaftw.model.entity.RolesEnum;
+import com.example.springbootthymeleaftw.model.entity.UserBusiness;
 import com.example.springbootthymeleaftw.model.entity.UserBusinessEntity;
 import com.example.springbootthymeleaftw.model.entity.UserEntity;
 import com.example.springbootthymeleaftw.repository.UserBusinessRepository;
@@ -26,6 +28,11 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final UserBusinessRepository userBusinessRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
+    private List<UserEntity> businessUsers = new ArrayList<UserEntity>();
+
+    private List<UserBusiness> businessUsersList = new ArrayList<UserBusiness>();
 
 
     @Override
@@ -58,5 +65,37 @@ public class UserService implements UserDetailsService {
             return;
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+    }
+
+
+    public List<UserBusiness> getAllBusinessUsers(){
+
+        List<UserEntity> bbUsers = userRepository.getAllByRole(RolesEnum.BUSINESS_TO_BUSINESS);
+        List<UserEntity> bcUsers = userRepository.getAllByRole(RolesEnum.BUSINESS_TO_CUSTOMER);
+        businessUsers.addAll(bbUsers);
+        businessUsers.addAll(bcUsers);
+
+        UserBusiness userBusiness = new UserBusiness();
+
+        for(var user:businessUsers){
+
+            Optional<UserBusinessEntity> userBusinessEntity = userBusinessRepository.findByUserEntity(user);
+            if(userBusinessEntity.get().getIsApproved()==false) {
+                userBusiness = new UserBusiness();
+                
+                userBusiness.setCompanyName(userBusinessEntity.get().getCompanyName());
+                userBusiness.setCompanyAddress(userBusinessEntity.get().getCompanyAddress());
+                userBusiness.setCompanyIdentificationCode(userBusinessEntity.get().getCompanyIdentificationCode());
+
+                userBusiness.setId(user.getId());
+                userBusiness.setEmail(user.getEmail());
+                userBusiness.setRole(user.getRole().name());
+
+                businessUsersList.add(userBusiness);
+            }
+
+        }
+        return businessUsersList;
+
     }
 }
