@@ -1,6 +1,8 @@
 package com.example.springbootthymeleaftw.service;
 
+import com.example.springbootthymeleaftw.model.entity.UserBusinessEntity;
 import com.example.springbootthymeleaftw.model.entity.UserEntity;
+import com.example.springbootthymeleaftw.repository.UserBusinessRepository;
 import com.example.springbootthymeleaftw.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,12 +25,13 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {//implements UserDetailsService {
-   // private final UserRepository userRepository;
-  //  private final BCryptPasswordEncoder bCryptPasswordEncoder;
+public class UserService implements UserDetailsService {
+    private final UserRepository userRepository;
+    private final UserBusinessRepository userBusinessRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-//    @Override
-//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 //        Optional<UserEntity> optUser = userRepository.findByEmail(email);
 //        if (optUser.isPresent()) {
 //            UserEntity appUser = optUser.get();
@@ -38,27 +41,34 @@ public class UserService {//implements UserDetailsService {
 //                    Objects.isNull(appUser.getRoles()) ?
 //                            new ArrayList(List.of(new SimpleGrantedAuthority("default")))
 //                            : appUser.getRoles()
-//                                .stream()
-//                                .map(RoleEntity::getName)
-//                                .map(SimpleGrantedAuthority::new)
-//                                .toList()
+//                            .stream()
+//                            .map(RoleEntity::getName)
+//                            .map(SimpleGrantedAuthority::new)
+//                            .toList()
 //            );
 //        }
-//        throw new UsernameNotFoundException(email);
-//    }
-//
-//
-//    public void save(UserEntity user) {
-//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-//        userRepository.save(user);
-//    }
-//    public void login(String email, String password){
-//        UserDetails userDetails = this.loadUserByUsername(email);
-//
-//        if(Objects.isNull(userDetails))
-//            return;
-//
-//        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
-//        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-//    }
+      throw new UsernameNotFoundException(email);
+    }
+    public void save(UserEntity user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+    public void saveBusiness(UserBusinessEntity userBusiness, UserEntity user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        System.out.println("test1");
+        userRepository.save(user);
+        System.out.println("test2");
+        userBusinessRepository.save(userBusiness);
+
+    }
+
+    public void login(String email, String password){
+        UserDetails userDetails = this.loadUserByUsername(email);
+
+        if(Objects.isNull(userDetails))
+            return;
+
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+    }
 }

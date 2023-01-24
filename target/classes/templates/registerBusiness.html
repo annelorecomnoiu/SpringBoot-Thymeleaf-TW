@@ -10,11 +10,9 @@
 
 <div class="container mt-5">
     <div class="shadow p-3 mb-5 bg-body rounded" >
-    <form method="POST" class="form-signin" th:object="${userForm}" th:action="@{/registerBusiness}">
+    <form method="POST" class="form-signin" th:object="${userBusinessForm}" th:action="@{/registerBusiness}">
 
         <h2 class="form-heading text-center">Create your account</h2>
-
-
         <div class="form-group">
 
 <!--             CompanyName -->
@@ -27,7 +25,7 @@
                        th:field="*{companyName}"
                        autofocus="true">
                 <label for="companyNameInput">Company Name</label>
-                <span class="has-error" th:if="${#fields.hasErrors('companyName')}" th:errors="*{username}"></span>
+                <span class="has-error" th:if="${#fields.hasErrors('companyName')}" th:errors="*{companyName}"></span>
             </div>
 
             <!--             Adress -->
@@ -37,10 +35,10 @@
                        type="text"
                        class="form-control"
                        placeholder="Username"
-                       th:field="*{address}"
+                       th:field="*{companyAddress}"
                        autofocus="true">
                 <label for="addressInput">Address</label>
-                <span class="has-error" th:if="${#fields.hasErrors('address')}" th:errors="*{username}"></span>
+                <span class="has-error" th:if="${#fields.hasErrors('companyAddress')}" th:errors="*{companyAddress}"></span>
             </div>
 
             <!--           Company Identification Code -->
@@ -53,33 +51,36 @@
                        th:field="*{companyIdentificationCode}"
                        autofocus="true">
                 <label for="companyIdentificationCodeInput">Company Identification Code</label>
-                <span class="has-error" th:if="${#fields.hasErrors('companyIdentificationCode')}" th:errors="*{username}"></span>
+                <span class="has-error" th:if="${#fields.hasErrors('companyIdentificationCode')}" th:errors="*{companyIdentificationCode}"></span>
             </div>
 
             <br>
             <label for="roles"  style="font-size: 20px">Choose account type:</label>
-            <div clas="form-floating mb-3">
-                <select name="roles" id="roles">
-                    <option value="businessToBusiness">Business to Business</option>
-                    <option value="businessToCustomer">Business to Customer</option>
+            <div clas="form-floating mb-3" th:object = "${userForm}">
+                <select property="selectedRole" name="role" id="roles" th:field="*{role}" >
+                    <option value="businessToBusiness" th:value="BUSINESS_TO_BUSINESS">Business to Business</option>
+                    <option value="businessToCustomer" th:value="BUSINESS_TO_CUSTOMER">Business to Customer</option>
                 </select>
             </div>
 
+
+
+
             <!-- Email -->
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-3" th:object = "${userForm}">
                 <input id="emailInput"
                        name="email"
                        type="text"
                        class="form-control"
-                       placeholder="Username"
+                       placeholder="Email"
                        th:field="*{email}"
                        autofocus="true">
                 <label for="emailInput">Email</label>
-                <span class="has-error" th:if="${#fields.hasErrors('email')}" th:errors="*{username}"></span>
+                <span class="has-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
             </div>
 
             <!-- Password -->
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-3" th:object = "${userForm}">
                 <input id="passwordInput"
                        name="password"
                        type="password"
@@ -91,7 +92,7 @@
             </div>
 
             <!--Password Confirm -->
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-3" th:object = "${userForm}">
                 <input id="confirmPassword"
                        name="confirmPassword"
                        type="password"

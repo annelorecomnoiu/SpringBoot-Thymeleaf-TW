@@ -1,5 +1,6 @@
 package com.example.springbootthymeleaftw.controller;
 
+import com.example.springbootthymeleaftw.model.entity.RolesEnum;
 import com.example.springbootthymeleaftw.model.entity.UserEntity;
 import com.example.springbootthymeleaftw.service.UserService;
 import com.example.springbootthymeleaftw.service.UserValidatorService;
@@ -30,12 +31,13 @@ public class RegisterClientController {
     @PostMapping()
     public String register(@ModelAttribute("userForm") UserEntity userForm, BindingResult bindingResult){
         userValidatorService.validate(userForm, bindingResult);
+        userForm.setRole(RolesEnum.CLIENT);
 
         if (bindingResult.hasErrors())
             return "registerClient";
 
-//        userService.save(userForm);
-//        userService.login(userForm.getEmail(), userForm.getPassword());
+        userService.save(userForm);
+       // userService.login(userForm.getEmail(), userForm.getPassword());
         return "index";
     }
 }

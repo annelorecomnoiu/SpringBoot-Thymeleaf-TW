@@ -25,10 +25,16 @@ public class UserBusinessEntity {
     @Column(name = "company_identification_code")
     private String companyIdentificationCode;
 
+    @Basic
+    @Column(name = "is_approved")
+    private Boolean isApproved;
+
+
     @OneToOne
     @JoinColumn(name="user_id")
     private UserEntity userEntity;
 
     public UserBusinessEntity() {
     }
+
 }

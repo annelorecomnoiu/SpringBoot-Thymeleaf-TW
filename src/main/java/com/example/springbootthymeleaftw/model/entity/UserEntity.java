@@ -5,6 +5,7 @@ import org.apache.catalina.User;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Optional;
 
 @Data
 @Entity
@@ -19,6 +20,7 @@ public class UserEntity {
     @Column(name = "email", unique = true)
     private String email;
 
+    @Basic
     @Enumerated(EnumType.STRING)
     private RolesEnum role;
 
@@ -28,9 +30,10 @@ public class UserEntity {
 
     @Transient
     private String passwordConfirm;
-    
+
 
     public UserEntity() {}
+
 
     //    @ManyToMany(fetch = FetchType.EAGER)
 //    @JoinTable(
