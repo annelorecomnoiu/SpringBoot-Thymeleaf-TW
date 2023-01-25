@@ -20,7 +20,7 @@ import java.util.Optional;
 public class HomeController {
     private final SecurityService securityService;
     private final UserRepository userRepository;
-    private UserService userService;
+    private final UserService userService;
 
     @GetMapping()
     public String open(Model model, String error, String logout){
@@ -39,10 +39,24 @@ public class HomeController {
                     return "client/homeClient";
                 else if(currentUser.getRole().toString() == "ADMIN")
                     return "admin/homeAdmin";
-                else if(currentUser.getRole().toString() == "BUSINESS_TO_BUSINESS")
-                    return "businessToBusiness/homeBB";
-                else if(currentUser.getRole().toString() == "BUSINESS_TO_CUSTOMER")
-                    return "businessToCustomer/homeBC";
+                else if(currentUser.getRole().toString() == "BUSINESS_TO_BUSINESS"){
+                    if(userService.isAcceptedForLogin(currentUser)==true)
+                        return "businessToBusiness/homeBB";
+                    else {
+                        model.addAttribute("approvalError", "Waiting for approval...");
+                        return "login";
+                    }
+                }
+
+                else if(currentUser.getRole().toString() == "BUSINESS_TO_CUSTOMER"){
+                    if(userService.isAcceptedForLogin(currentUser)==true)
+                        return "businessToCustomer/homeBC";
+                    else{
+                        model.addAttribute("approvalError", "Waiting for approval...");
+                        return "login";
+                    }
+                }
+
             }
 
         }

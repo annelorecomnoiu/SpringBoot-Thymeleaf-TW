@@ -25,7 +25,6 @@ public class RegisterBusinessController {
     @GetMapping()
     public String open(Model model){
 
-        System.out.println(model);
         model.addAttribute("userBusinessForm", new UserBusinessEntity());
         model.addAttribute("userForm", new UserEntity());
 
@@ -40,11 +39,10 @@ public class RegisterBusinessController {
         if (bindingResult.hasErrors())
             return "registerBusiness";
 
-
         userBusinessForm.setUserEntity(userForm);
         userBusinessForm.setIsApproved(false);
         userService.saveBusiness(userBusinessForm, userForm);
         userService.login(userForm.getEmail(), userForm.getPassword());
-        return "index";
+        return "login";
     }
 }

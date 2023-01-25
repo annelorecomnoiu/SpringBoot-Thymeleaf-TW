@@ -31,8 +31,6 @@ public class LoginController {
 
     @PostMapping("")
     public String login(Model model, String error, String logout){
-
-        System.out.println("========AM INTRAT IN LOGIN========");
         return "index";
     }
 
