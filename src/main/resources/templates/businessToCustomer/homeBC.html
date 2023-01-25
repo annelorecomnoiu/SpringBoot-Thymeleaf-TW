@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta charset="UTF-8">
-    <title>BC home</title>
+    <div th:include="fragments/components::header"></div>
 </head>
+
 <body>
-    <h1>Business To Customer HOME</h1>
+<h1>Business to customer HOME</h1>
+
+<a href="/warehouseBC" class="link-danger">Warehouse</a>
+
+<div th:include="fragments/components::bootstrap_script"/>
 </body>
 </html>
