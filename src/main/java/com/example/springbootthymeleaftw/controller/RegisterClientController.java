@@ -22,7 +22,6 @@ public class RegisterClientController {
 
     @GetMapping()
     public String open(Model model){
-        System.out.println(model);
         model.addAttribute("userForm", new UserEntity());
 
         return "registerClient";

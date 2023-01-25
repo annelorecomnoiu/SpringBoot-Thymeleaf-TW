@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="shadow p-3 mb-5 bg-body rounded" >
+        <form method="POST" class="form-create-product" th:object="${productForm}" th:action="@{/businessToBusiness}">
+
+            <h2 class="form-heading text-center">Create a product</h2>
+            <div class="form-group">
+
+                <!--             ProductName -->
+                <div class="form-floating mb-3">
+                    <input id="productNameInput"
+                           name="productName"
+                           type="text"
+                           class="form-control"
+                           placeholder="Username"
+                           th:field="*{productName}"
+                           autofocus="true">
+                    <label for="productNameInput">Product Name</label>
+                    <span class="has-error" th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}"></span>
+                </div>
+
+                <!--             Adress -->
+                <div class="form-floating mb-3">
+                    <input id="addressInput"
+                           name="address"
+                           type="text"
+                           class="form-control"
+                           placeholder="Username"
+                           th:field="*{companyAddress}"
+                           autofocus="true">
+                    <label for="addressInput">Address</label>
+                    <span class="has-error" th:if="${#fields.hasErrors('companyAddress')}" th:errors="*{companyAddress}"></span>
+                </div>
+
+                <!--           Company Identification Code -->
+                <div class="form-floating mb-3">
+                    <input id="companyIdentificationCodeInput"
+                           name="companyIdentificationCode"
+                           type="text"
+                           class="form-control"
+                           placeholder="Username"
+                           th:field="*{companyIdentificationCode}"
+                           autofocus="true">
+                    <label for="companyIdentificationCodeInput">Company Identification Code</label>
+                    <span class="has-error" th:if="${#fields.hasErrors('companyIdentificationCode')}" th:errors="*{companyIdentificationCode}"></span>
+                </div>
+
+                <br>
+                <label for="roles"  style="font-size: 20px">Choose account type:</label>
+                <div clas="form-floating mb-3" th:object = "${userForm}">
+                    <select property="selectedRole" name="role" id="roles" th:field="*{role}" >
+                        <option value="businessToBusiness" th:value="BUSINESS_TO_BUSINESS">Business to Business</option>
+                        <option value="businessToCustomer" th:value="BUSINESS_TO_CUSTOMER">Business to Customer</option>
+                    </select>
+                </div>
+
+
+
+
+                <!-- Email -->
+                <div class="form-floating mb-3" th:object = "${userForm}">
+                    <input id="emailInput"
+                           name="email"
+                           type="text"
+                           class="form-control"
+                           placeholder="Email"
+                           th:field="*{email}"
+                           autofocus="true">
+                    <label for="emailInput">Email</label>
+                    <span class="has-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </div>
+
+                <!-- Password -->
+                <div class="form-floating mb-3" th:object = "${userForm}">
+                    <input id="passwordInput"
+                           name="password"
+                           type="password"
+                           class="form-control"
+                           th:field="*{password}"
+                           placeholder="Password">
+                    <label for="passwordInput">Password</label>
+                    <span class="has-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                </div>
+
+                <!--Password Confirm -->
+                <div class="form-floating mb-3" th:object = "${userForm}">
+                    <input id="confirmPassword"
+                           name="confirmPassword"
+                           type="password"
+                           class="form-control"
+                           th:field="*{passwordConfirm}"
+                           placeholder="Confirm your password">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <span class="has-error" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span>
+                </div>
+            </div>
+
+            <!-- Login/Register -->
+            <div class="text-center text-lg-start mt-4 pt-2">
+                <button class="btn btn-primary btn-lg"
+                        style="padding-left: 2.5rem; padding-right: 2.5rem;"
+                        type="submit">
+                    Submit
+                </button>
+
+                <p class="small fw-bold mt-2 pt-1 mb-0">
+                    <a href="/login" class="link-danger">Login</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div th:include="fragments/components::bootstrap_script"/>
+
+</body>
+</html>

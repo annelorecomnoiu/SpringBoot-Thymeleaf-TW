@@ -47,7 +47,6 @@ public class HomeController {
                         return "login";
                     }
                 }
-
                 else if(currentUser.getRole().toString() == "BUSINESS_TO_CUSTOMER"){
                     if(userService.isAcceptedForLogin(currentUser)==true)
                         return "businessToCustomer/homeBC";

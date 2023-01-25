@@ -2,6 +2,9 @@ package com.example.springbootthymeleaftw.model.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -33,6 +36,15 @@ public class UserBusinessEntity {
     @OneToOne
     @JoinColumn(name="user_id")
     private UserEntity userEntity;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_business_id")
+    private List<ProductEntity> listOfProducts = new ArrayList<>();
+
+
 
     public UserBusinessEntity() {
     }
