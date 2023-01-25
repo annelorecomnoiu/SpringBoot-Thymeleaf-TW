@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <div th:include="fragments/components::header"></div>
 </head>
+
 <body>
 <div class="container mt-5">
     <div class="shadow p-3 mb-5 bg-body rounded" >
-        <form method="POST" class="form-create-product" th:object="${productForm}" th:action="@{/homeBusinessToBusiness}">
+        <form method="POST" class="form-create-product" th:object="${productForm}" th:action="@{/product}">
 
             <h2 class="form-heading text-center">Create a product</h2>
             <div class="form-group">
@@ -67,19 +69,14 @@
                 </div>
 
 
-
-
             <!-- addProduct -->
             <div class="text-center text-lg-start mt-4 pt-2">
                 <button class="btn btn-primary btn-lg"
                         style="padding-left: 2.5rem; padding-right: 2.5rem;"
                         type="submit">
-                    Submit
+                    Add Product
                 </button>
-
-                <p class="small fw-bold mt-2 pt-1 mb-0">
-                    <a href="/login" class="link-danger">Login</a>
-                </p>
+            </div>
             </div>
         </form>
     </div>

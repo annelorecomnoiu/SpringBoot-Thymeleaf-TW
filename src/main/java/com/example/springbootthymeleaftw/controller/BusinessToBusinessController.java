@@ -16,21 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/homeBusinessToBusiness")
 @RequiredArgsConstructor
 public class BusinessToBusinessController {
-    @GetMapping("/homeBusinessToBusiness")
-    public String openCreateProduct(Model model){
-        model.addAttribute("productForm", new ProductEntity());
-        return "/businessToBusiness/createProduct";
+    @GetMapping()
+    public String open(Model model){
+
+        return "businessToBusiness/homeBB";
     }
 
-    @PostMapping("/homeBusinessToBusiness")
-    public String register(@ModelAttribute("productForm") ProductEntity productForm,
-                           BindingResult bindingResult){
 
-//        productForm.setProductEntity(productForm);
-//        userBusinessForm.setIsApproved(false);
-//        userService.saveBusiness(userBusinessForm, userForm);
-//        userService.login(userForm.getEmail(), userForm.getPassword());
-        return "/businessToBusiness/homeBB";
-    }
 
 }

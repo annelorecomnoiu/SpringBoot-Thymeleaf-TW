@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta charset="UTF-8">
-    <title>BB home</title>
+    <div th:include="fragments/components::header"></div>
 </head>
+
 <body>
     <h1>Business to business HOME</h1>
 
-    <a href="/homeBusinessToBusiness" class="link-danger"> Create a product</a>
+    <a href="/product" class="link-danger">Create a product</a>
+    <br>
+    <a class="btn-style" th:href= "@{/logout}">Logout</a>
+
+    <div th:include="fragments/components::bootstrap_script"/>
 </body>
 </html>

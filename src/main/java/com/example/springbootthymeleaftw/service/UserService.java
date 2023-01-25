@@ -1,9 +1,7 @@
 package com.example.springbootthymeleaftw.service;
 
-import com.example.springbootthymeleaftw.model.entity.RolesEnum;
-import com.example.springbootthymeleaftw.model.entity.UserBusiness;
-import com.example.springbootthymeleaftw.model.entity.UserBusinessEntity;
-import com.example.springbootthymeleaftw.model.entity.UserEntity;
+import com.example.springbootthymeleaftw.model.entity.*;
+import com.example.springbootthymeleaftw.repository.ProductRepository;
 import com.example.springbootthymeleaftw.repository.UserBusinessRepository;
 import com.example.springbootthymeleaftw.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +28,7 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final UserBusinessRepository userBusinessRepository;
+    private final ProductRepository productRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
@@ -141,4 +140,13 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
+
+    public void addProductToDB(ProductEntity productEntity, String email){
+        Optional<UserEntity> userEntity = userRepository.findByEmail(email);
+        Optional<UserBusinessEntity> userBusinessEntity = userBusinessRepository.findByUserEntity(userEntity.get());
+
+        productEntity.setUserBusinessId(userBusinessEntity.get().getId());
+        productRepository.save(productEntity);
+
+    }
 }
