@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -70,6 +71,14 @@ public class UserService implements UserDetailsService {
     }
 
 
+    public List<ProductEntity> getAllProducts(){
+        List<ProductEntity> products = new ArrayList<ProductEntity>();
+        products = productRepository.findAll()
+                                    .stream()
+                                    .collect(Collectors.toList());
+        return products;
+    }
+
     public List<UserBusiness> getAllBusinessUsers(){
 
         List<UserEntity> businessUsers = new ArrayList<UserEntity>();
@@ -113,6 +122,7 @@ public class UserService implements UserDetailsService {
 
     }
 
+
     public void userIsAccepted(Long id){
         Optional<UserEntity> user = userRepository.findById(id);
         Optional<UserBusinessEntity> userBusiness = userBusinessRepository.findByUserEntity(user.get());
@@ -146,6 +156,7 @@ public class UserService implements UserDetailsService {
         Optional<UserBusinessEntity> userBusinessEntity = userBusinessRepository.findByUserEntity(userEntity.get());
 
         productEntity.setUserBusinessId(userBusinessEntity.get().getId());
+        productEntity.setProductQuantityBC(0L);
         productRepository.save(productEntity);
 
     }

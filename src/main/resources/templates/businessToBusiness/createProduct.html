@@ -42,15 +42,15 @@
 
                 <!--           ProductQuantity -->
                 <div class="form-floating mb-3">
-                    <input id="productQuantityInput"
-                           name="productQuantity"
+                    <input id="productQuantityBBInput"
+                           name="productQuantityBB"
                            type="number"
                            class="form-control"
                            placeholder="Quantity"
-                           th:field="*{productQuantity}"
+                           th:field="*{productQuantityBB}"
                            autofocus="true">
-                    <label for="productQuantityInput">Product Quantity</label>
-                    <span class="has-error" th:if="${#fields.hasErrors('productQuantity')}" th:errors="*{productQuantity}"></span>
+                    <label for="productQuantityBBInput">Product Quantity</label>
+                    <span class="has-error" th:if="${#fields.hasErrors('productQuantityBB')}" th:errors="*{productQuantityBB}"></span>
                 </div>
 
 

@@ -31,8 +31,12 @@ public class ProductEntity {
     private String productWeight;
 
     @Basic
-    @Column(name = "product_quantity")
-    private Long productQuantity;
+    @Column(name = "product_quantity_bb")
+    private Long productQuantityBB;
+
+    @Basic
+    @Column(name = "product_quantity_bc")
+    private Long productQuantityBC;
 
     public ProductEntity() {}
 

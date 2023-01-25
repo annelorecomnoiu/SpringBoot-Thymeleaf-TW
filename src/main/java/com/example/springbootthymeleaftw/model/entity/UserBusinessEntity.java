@@ -45,7 +45,6 @@ public class UserBusinessEntity {
     private List<ProductEntity> listOfProducts = new ArrayList<>();
 
 
-
     public UserBusinessEntity() {
     }
 
