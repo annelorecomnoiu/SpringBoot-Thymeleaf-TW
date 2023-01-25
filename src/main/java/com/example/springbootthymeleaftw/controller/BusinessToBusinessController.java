@@ -11,22 +11,35 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/warehouse")
 @RequiredArgsConstructor
 public class BusinessToBusinessController {
 
     private final UserService userService;
-    @GetMapping()
+    @GetMapping("/warehouse")
     public String openWarehouse(Model model){
         model.addAttribute("productsList", userService.getAllProducts() );
         return "businessToBusiness/warehouse";
     }
 
-    @GetMapping("warehouse/editQuantity/{id}")
-    public String editQuantity(@PathVariable Long id){
-        //userService.userIsAccepted(id);
-        return "businessToBusiness/warehouse";
+    @GetMapping("/requests")
+    public String openRequests(Model model){
+        model.addAttribute("requestsList", userService.getAllRequests());
+        return "businessToBusiness/bcRequests";
     }
+
+
+    @GetMapping("requests/acceptRequest/{name}/{id}")
+    public String acceptRequest(Model model, @PathVariable String name, @PathVariable Long id){
+        userService.transaction(name,id);
+        return openRequests(model);
+    }
+
+    @GetMapping("requests/declineRequest/{id}")
+    public String declineRequest(Model model, @PathVariable Long id){
+        userService.declineRequestById(id);
+        return openRequests(model);
+    }
+
 
 
 

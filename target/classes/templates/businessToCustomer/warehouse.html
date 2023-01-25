@@ -34,7 +34,7 @@
         <td th:text="${product.productQuantityBB}"></td>
         <td th:text="${product.productQuantityBC}"></td>
         <td>
-          <form method="POST" class="form-signin" th:object="${request}" th:action="@{/warehouseBC/{productName}/{userBusinessId}(productName=${product.productName}, userBusinessId=${product.userBusinessId})}">
+          <form method="POST" class="form-signin" th:object="${request}" th:action="@{/warehouseBC/{productName}(productName=${product.productName})}">
           <input name="quantity"
                  type="text"
                  class="form-control"

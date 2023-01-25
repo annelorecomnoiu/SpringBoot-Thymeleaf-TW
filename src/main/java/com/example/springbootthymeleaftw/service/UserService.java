@@ -73,7 +73,6 @@ public class UserService implements UserDetailsService {
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
     }
 
-
     public List<ProductEntity> getAllProducts(){
         List<ProductEntity> products = new ArrayList<ProductEntity>();
         products = productRepository.findAll()
@@ -82,6 +81,13 @@ public class UserService implements UserDetailsService {
         return products;
     }
 
+    public List<RequestEntity> getAllRequests(){
+        List<RequestEntity> requests = new ArrayList<RequestEntity>();
+        requests = requestRepository.findAll()
+                .stream()
+                .collect(Collectors.toList());
+        return requests;
+    }
     public List<UserBusiness> getAllBusinessUsers(){
 
         List<UserEntity> businessUsers = new ArrayList<UserEntity>();
@@ -164,13 +170,24 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public void addRequest(RequestEntity requestEntity, Long id)
+    public void addRequest(RequestEntity requestEntity)
     {
-        Optional<UserBusinessEntity> userBusinessEntity = userBusinessRepository.findById(id);
-        Optional<UserEntity> userEntity = userRepository.findById(userBusinessEntity.get().getUserEntity().getId());
-        requestEntity.setEmail(userEntity.get().getEmail());
-
         requestRepository.save(requestEntity);
     }
+    public void transaction(String productName, Long id){
+        Optional<ProductEntity> productEntity = productRepository.findByProductName(productName);
+        Optional<RequestEntity> requestEntity = requestRepository.findById(id);
 
+        productEntity.get().setProductQuantityBB(productEntity.get().getProductQuantityBB() - requestEntity.get().getQuantity());
+        productEntity.get().setProductQuantityBC(productEntity.get().getProductQuantityBC() + requestEntity.get().getQuantity());
+
+        productRepository.save(productEntity.get());
+        requestRepository.delete(requestEntity.get());
+
+    }
+
+    public void declineRequestById(Long id){
+        Optional<RequestEntity> requestEntity = requestRepository.findById(id);
+        requestRepository.delete(requestEntity.get());
+    }
 }

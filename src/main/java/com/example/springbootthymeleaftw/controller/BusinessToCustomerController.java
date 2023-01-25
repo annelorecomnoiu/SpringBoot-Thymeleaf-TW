@@ -6,6 +6,8 @@ import com.example.springbootthymeleaftw.model.entity.UserBusinessEntity;
 import com.example.springbootthymeleaftw.model.entity.UserEntity;
 import com.example.springbootthymeleaftw.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,10 +26,16 @@ public class BusinessToCustomerController {
     }
     @PostMapping("/warehouseBC/{productName}/{userBusinessId}")
     public String createRequest(Model model, @ModelAttribute("request") RequestEntity requestEntity,
-                           BindingResult bindingResult, @PathVariable String productName, @PathVariable Long userBusinessId){
+                           BindingResult bindingResult, @PathVariable String productName){
 
         requestEntity.setProductName(productName);
-        userService.addRequest(requestEntity, userBusinessId);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            String email = ((UserDetails) principal).getUsername();
+            requestEntity.setEmail(email);
+            userService.addRequest(requestEntity);
+        }
         return open(model);
     }
 }

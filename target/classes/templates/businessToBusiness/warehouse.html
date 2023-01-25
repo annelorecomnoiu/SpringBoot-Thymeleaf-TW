@@ -21,7 +21,6 @@
           <th>Product Color</th>
           <th>Product Weight</th>
           <th>Product Quantity</th>
-          <th>Actions</th>
         </tr>
         </thead>
 
@@ -31,9 +30,7 @@
           <td th:text="${product.productColor}"></td>
           <td th:text="${product.productWeight}"></td>
           <td th:text="${product.productQuantityBB}"></td>
-          <td>
-<!--            <a th:href = "@{warehouse/editQuantity/{id}(id =${product.id})}" class = "btn btn-primary ">EDIT QUANTITY</a>-->
-          </td>
+
         </tr>
         </tbody>
       </table>

@@ -26,5 +26,7 @@ public class RequestEntity {
     @Column(name = "quantity")
     private Long quantity;
 
+
+
     public RequestEntity() {}
 }
