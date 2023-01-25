@@ -5,6 +5,8 @@ import com.example.springbootthymeleaftw.model.entity.UserBusinessEntity;
 import com.example.springbootthymeleaftw.model.entity.UserEntity;
 import com.example.springbootthymeleaftw.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +19,13 @@ public class BusinessToBusinessController {
     private final UserService userService;
     @GetMapping("/warehouse")
     public String openWarehouse(Model model){
-        model.addAttribute("productsList", userService.getAllProducts() );
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            String email = ((UserDetails) principal).getUsername();
+            userService.findIdByEmail(email);
+            model.addAttribute("productsList", userService.getAllFilteredProducts( userService.findIdByEmail(email)));
+        }
+
         return "businessToBusiness/warehouse";
     }
 

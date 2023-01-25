@@ -24,7 +24,7 @@ public class BusinessToCustomerController {
         model.addAttribute("request", new RequestEntity());
         return "businessToCustomer/warehouse";
     }
-    @PostMapping("/warehouseBC/{productName}/{userBusinessId}")
+    @PostMapping("/warehouseBC/{productName}")
     public String createRequest(Model model, @ModelAttribute("request") RequestEntity requestEntity,
                            BindingResult bindingResult, @PathVariable String productName){
 

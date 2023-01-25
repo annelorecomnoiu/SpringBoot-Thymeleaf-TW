@@ -76,9 +76,28 @@ public class UserService implements UserDetailsService {
     public List<ProductEntity> getAllProducts(){
         List<ProductEntity> products = new ArrayList<ProductEntity>();
         products = productRepository.findAll()
+                .stream()
+                .collect(Collectors.toList());
+
+        return products;
+    }
+    public List<ProductEntity> getAllFilteredProducts(Long businessId){
+        List<ProductEntity> products = new ArrayList<ProductEntity>();
+        products = productRepository.findAll()
                                     .stream()
                                     .collect(Collectors.toList());
-        return products;
+        List<ProductEntity> filteredProducts = new ArrayList<ProductEntity>();
+        for(var product: products){
+            if(product.getUserBusinessId() == businessId)
+                filteredProducts.add(product);
+        }
+        return filteredProducts;
+    }
+
+    public Long findIdByEmail(String email){
+        Optional<UserEntity> userEntity = userRepository.findByEmail(email);
+        Optional<UserBusinessEntity> userBusinessEntity = userBusinessRepository.findByUserEntity(userEntity.get());
+        return userBusinessEntity.get().getId();
     }
 
     public List<RequestEntity> getAllRequests(){

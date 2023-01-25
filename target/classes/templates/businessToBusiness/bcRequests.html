@@ -31,7 +31,7 @@
         <td th:text="${request.quantity}"></td>
 
         <td>
-          <a th:href = "@{requests/acceptRequest/{name}/{id}(name =${request.productName}, id =${request.id})}" class = "btn btn-primary ">ACCEPT</a>
+          <a th:href = "@{requests/acceptRequest/{name}(name =${request.productName})}" class = "btn btn-primary ">ACCEPT</a>
           <a th:href = "@{requests/declineRequest/{id}(id =${request.id})}" class = "btn btn-danger "> DECLINE </a>
         </td>
       </tr>
